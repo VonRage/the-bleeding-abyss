@@ -3,14 +3,13 @@ extends KinematicBody2D
 const ACCELERATION = 3000
 const MAX_SPEED = 18000
 const LIMIT_SPEED_Y = 1200
-const JUMP_HEIGHT = 36000
+const JUMP_HEIGHT = 60000
 const MIN_JUMP_HEIGHT = 12000
 const MAX_COYOTE_TIME = 6
 const JUMP_BUFFER_TIME = 10
 const GRAVITY = 2100
 
 var velocity = Vector2()
-var axis = Vector2()
 
 var coyoteTimer = 0
 var jumpBufferTimer = 0
@@ -18,17 +17,17 @@ var canJump = false
 var friction = false
 
 var is_head_launched = false
-const launch_speed = 130
-const head_ups = -600
+var launch_speed = 1000
+var head_ups = -300
 
 onready var anim = $BodySprite
+onready var hud = $HUD
+onready var quit_button = $HUD/CanvasLayer/QuitButton
 
 func _physics_process(delta):
 	if velocity.y <= LIMIT_SPEED_Y:
 		velocity.y += GRAVITY * delta
 
-	friction = false
-	getInputAxis()
 	launch_head()
 
 	# Basic vertical movement mechanics
@@ -73,22 +72,21 @@ func jumpBuffer(delta):
 		jumpBufferTimer -= 1
 
 func setJumpHeight(delta):
-	if Input.is_action_just_released("ui_up"):
+	if Input.is_action_just_released("ui_jump"):
 		if velocity.y < -MIN_JUMP_HEIGHT * delta:
 			velocity.y = -MIN_JUMP_HEIGHT * delta
 
 func horizontalMovement(delta):
 	if Input.is_action_pressed("ui_right"):
 		velocity.x = min(velocity.x + ACCELERATION * delta, MAX_SPEED * delta)
+		anim.play("walk")
 	elif Input.is_action_pressed("ui_left"):
 		velocity.x = max(velocity.x - ACCELERATION * delta, -MAX_SPEED * delta)
+		anim.play("walk")
 	else:
 		velocity.x = lerp(velocity.x, 0, 0.4)
-
-func getInputAxis():
-	axis = Vector2.ZERO
-	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	axis = axis.normalized()
+		if is_on_floor():
+			anim.play("idle")
 
 func flip_sprite():
 	if velocity.x > 0:
@@ -97,13 +95,16 @@ func flip_sprite():
 		anim.flip_h = true
 
 func launch_head():
-	if Input.is_action_pressed("ui_throw") and !is_head_launched:
+	if Input.is_action_just_pressed("ui_throw") and !is_head_launched:
 		is_head_launched = true
 		$BodySprite.hide()
 		$CollisionBody.disabled = true
 		var direction = -1 if anim.flip_h else 1
 		velocity = Vector2(launch_speed * direction, head_ups)
 
-
 func _on_ExitBlock_body_entered(_body):
-	print_debug("Maybe now?")
+	get_tree().change_scene("res://title-screen/Title.tscn")
+
+func _process(_delta):
+	if Input.is_action_just_released("ui_reset"):
+		get_tree().change_scene("res://levels/Castle.tscn")

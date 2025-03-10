@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://resources/level-1/SkyGradient-960x544.png" type="Texture" id=1]
+
+[node name="ParallaxSky" type="ParallaxBackground"]
+
+[node name="SkyRedBlack" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.1, 0 )
+motion_mirroring = Vector2( 960, 0 )
+
+[node name="Sprite" type="Sprite" parent="SkyRedBlack"]
+position = Vector2( 0, -272 )
+texture = ExtResource( 1 )
+centered = false

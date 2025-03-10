@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SkyThings-P_Menacing_Sky.png-c2cbf9cdd36a51fbdaa46d0e2749784c.stex"
+path="res://.import/SkyGradient.png-cbb266c4b6618834dbc8312f0575ed9b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://world-1/SkyThings-P_Menacing_Sky.png"
-dest_files=[ "res://.import/SkyThings-P_Menacing_Sky.png-c2cbf9cdd36a51fbdaa46d0e2749784c.stex" ]
+source_file="res://resources/level-1/SkyGradient.png"
+dest_files=[ "res://.import/SkyGradient.png-cbb266c4b6618834dbc8312f0575ed9b.stex" ]
 
 [params]
 
@@ -32,4 +32,4 @@ process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=4.0
+svg/scale=1.0
