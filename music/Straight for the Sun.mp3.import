@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Straight for the Sun.mp3-1405e1755e68ff1ccf7d0f309ae20595.mp3str"
+
+[deps]
+
+source_file="res://music/Straight for the Sun.mp3"
+dest_files=[ "res://.import/Straight for the Sun.mp3-1405e1755e68ff1ccf7d0f309ae20595.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Mind's Eye Loop1.wav-eaa663d831ffc5b9b17b87e40b2f9727.sample"
+
+[deps]
+
+source_file="res://music/Mind's Eye Loop1.wav"
+dest_files=[ "res://.import/Mind's Eye Loop1.wav-eaa663d831ffc5b9b17b87e40b2f9727.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

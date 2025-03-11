@@ -1,97 +1,110 @@
 extends KinematicBody2D
 
+const ACCELERATION = 3000
+const MAX_SPEED = 18000
+const LIMIT_SPEED_Y = 1200
+const JUMP_HEIGHT = 60000
+const MIN_JUMP_HEIGHT = 12000
+const MAX_COYOTE_TIME = 6
+const JUMP_BUFFER_TIME = 10
+const GRAVITY = 2100
 
-# Constants
-const RUN_SPEED = 600
-const JUMP_FORCE = -600
-const GRAVITY = 800
+var velocity = Vector2()
 
-# Bools
+var coyoteTimer = 0
+var jumpBufferTimer = 0
+var canJump = false
+var friction = false
+
 var is_head_launched = false
+var launch_speed = 1000
+var head_ups = -300
 
-# Vectors
-var velocity = Vector2.ZERO
-
-# Floats
-var jump_height = 0.0
-var jump_time = 0.0
-export var jump_speed = 2
-export var launch_speed = 130
-export var head_ups = -400
-
-# Node References
 onready var anim = $BodySprite
+onready var hud = $HUD
+onready var quit_button = $HUD/CanvasLayer/QuitButton
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	# Start gravity and movement ability
-	apply_gravity(delta)
-	if !is_head_launched:
-		handle_normal_movement(delta)
-		launch_head()
-	elif is_head_launched:
-		handle_projectile_movement(delta)
+	if velocity.y <= LIMIT_SPEED_Y:
+		velocity.y += GRAVITY * delta
 
-func handle_normal_movement(delta):
-		run()
-		jump(delta)
-		velocity = move_and_slide(velocity, Vector2.UP)
-		if velocity.x < 0:
-			anim.flip_h = true
-		elif velocity.x > 0:
-			anim.flip_h = false
-			
-func handle_projectile_movement(delta):
-	# Allow limited air control
-	if Input.is_action_pressed("ui_right"):
-		velocity.x = RUN_SPEED/jump_speed
-	elif Input.is_action_pressed("ui_left"):
-		velocity.x = -RUN_SPEED/jump_speed
+	launch_head()
+
+	# Basic vertical movement mechanics
+	if !is_head_launched:
+		horizontalMovement(delta)
+		flip_sprite()
+
+	# Jumping mechanics and coyote time
+	if is_on_floor():
+		canJump = true
+		coyoteTimer = 0
 	else:
-		velocity.x = 0
+		coyoteTimer += 1
+		if coyoteTimer > MAX_COYOTE_TIME:
+			canJump = false
+			coyoteTimer = 0
+		friction = true
+	
+	jumpBuffer(delta)
+
+	if Input.is_action_just_pressed("ui_jump"):
+		if canJump:
+			jump(delta)
+			frictionOnAir()
+
+	setJumpHeight(delta)
+	jumpBuffer(delta)
+
 	velocity = move_and_slide(velocity, Vector2.UP)
 
-# Apply gravity if not on the ground
-func apply_gravity(delta):
-	if not is_on_floor():
-		velocity.y += delta * GRAVITY
-
-# Player Running Movement and Animation
-func run():
-	if Input.is_action_pressed("ui_left") and is_on_floor():
-		anim.play("walk")
-		velocity.x = -RUN_SPEED
-	elif Input.is_action_pressed("ui_right") and is_on_floor():
-		anim.play("walk")
-		velocity.x = RUN_SPEED
-	else:
-		anim.play("idle")
-		velocity.x = 0
-
-# Movement
 func jump(delta):
-	if Input.is_action_pressed("ui_jump"):
-		jump_time = clamp(jump_time + delta * 6, 0.0, 1.0)
-		jump_height = lerp(velocity.y, JUMP_FORCE, jump_time)
-	if Input.is_action_pressed("ui_jump") and is_on_floor():
-		velocity.y = jump_height
-		
-# Aerial Movement
-	if Input.is_action_pressed("ui_left") and !is_on_floor():
+	velocity.y = -JUMP_HEIGHT * delta
+
+func frictionOnAir():
+	if friction:
+		velocity.x = lerp(velocity.x, 0, 0.01)
+
+func jumpBuffer(delta):
+	if jumpBufferTimer > 0:
+		if is_on_floor():
+			jump(delta)
+		jumpBufferTimer -= 1
+
+func setJumpHeight(delta):
+	if Input.is_action_just_released("ui_jump"):
+		if velocity.y < -MIN_JUMP_HEIGHT * delta:
+			velocity.y = -MIN_JUMP_HEIGHT * delta
+
+func horizontalMovement(delta):
+	if Input.is_action_pressed("ui_right"):
+		velocity.x = min(velocity.x + ACCELERATION * delta, MAX_SPEED * delta)
 		anim.play("walk")
-		velocity.x = -RUN_SPEED/jump_speed
-	elif Input.is_action_pressed("ui_right") and !is_on_floor():
+	elif Input.is_action_pressed("ui_left"):
+		velocity.x = max(velocity.x - ACCELERATION * delta, -MAX_SPEED * delta)
 		anim.play("walk")
-		velocity.x = RUN_SPEED/jump_speed
+	else:
+		velocity.x = lerp(velocity.x, 0, 0.4)
+		if is_on_floor():
+			anim.play("idle")
+
+func flip_sprite():
+	if velocity.x > 0:
+		anim.flip_h = false
+	elif velocity.x < 0:
+		anim.flip_h = true
 
 func launch_head():
-	if Input.is_action_pressed("ui_throw") and !is_head_launched:
+	if Input.is_action_just_pressed("ui_throw") and !is_head_launched:
 		is_head_launched = true
 		$BodySprite.hide()
 		$CollisionBody.disabled = true
 		var direction = -1 if anim.flip_h else 1
 		velocity = Vector2(launch_speed * direction, head_ups)
 
+func _on_ExitBlock_body_entered(_body):
+	get_tree().change_scene("res://title-screen/Title.tscn")
 
-func _on_ExitBlock_body_entered(body):
-	print_debug("Maybe now?")
+func _process(_delta):
+	if Input.is_action_just_released("ui_reset"):
+		get_tree().change_scene("res://levels/Castle.tscn")
