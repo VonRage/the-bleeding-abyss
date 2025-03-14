@@ -8,6 +8,7 @@ const MIN_JUMP_HEIGHT = 12000
 const MAX_COYOTE_TIME = 6
 const JUMP_BUFFER_TIME = 10
 const GRAVITY = 2100
+const TOLERANCE = .05
 
 var velocity = Vector2()
 
@@ -19,16 +20,31 @@ var friction = false
 var is_head_launched = false
 var launch_speed = 1000
 var head_ups = -300
+var rotate_ccw = true
+var rotate_speed = 1
 
 onready var anim = $BodySprite
 onready var hud = $HUD
+onready var main_cam = $Camera2D
 onready var quit_button = $HUD/CanvasLayer/QuitButton
+onready var throw_angle = $ThrowRotator.rotation_degrees
+
+func _ready():
+	pass
+
+# Sets up Camera2D limits in accordance with where the tilemap has been painted in level
+func setup_camera_limits(limits: Dictionary):
+	main_cam.limit_left = limits["left"]
+	main_cam.limit_right = limits["right"]
+	main_cam.limit_top = limits["top"]
+	main_cam.limit_bottom = limits["bottom"]
+
 
 func _physics_process(delta):
 	if velocity.y <= LIMIT_SPEED_Y:
 		velocity.y += GRAVITY * delta
 
-	launch_head()
+	launch_head(delta)
 
 	# Basic vertical movement mechanics
 	if !is_head_launched:
@@ -94,13 +110,27 @@ func flip_sprite():
 	elif velocity.x < 0:
 		anim.flip_h = true
 
-func launch_head():
-	if Input.is_action_just_pressed("ui_throw") and !is_head_launched:
+func launch_head(delta):
+#	print_debug(throw_angle)
+	$ThrowRotator/Line2D.rotation = throw_angle
+	if Input.is_action_pressed("ui_throw", delta):
+		if rotate_ccw:
+			throw_angle += delta * rotate_speed
+			if throw_angle >= 180 - TOLERANCE:
+				throw_angle = 180  # Snap to 180 to ensure precision
+				rotate_ccw = false
+		else:
+			throw_angle -= delta * rotate_speed
+			if throw_angle <= 0 + TOLERANCE:
+				throw_angle = 0  # Snap to 0 to ensure precision
+				rotate_ccw = true
+	
+	if Input.is_action_just_released("ui_throw") and !is_head_launched:
 		is_head_launched = true
 		$BodySprite.hide()
 		$CollisionBody.disabled = true
-		var direction = -1 if anim.flip_h else 1
-		velocity = Vector2(launch_speed * direction, head_ups)
+		var direction = Vector2(cos(deg2rad(throw_angle)), -sin(deg2rad(throw_angle)))
+		velocity = direction.normalized() * launch_speed
 
 func _on_ExitBlock_body_entered(_body):
 	get_tree().change_scene("res://title-screen/Title.tscn")

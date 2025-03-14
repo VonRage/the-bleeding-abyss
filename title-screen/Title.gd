@@ -23,14 +23,11 @@ func fade_music_out():
 func _on_MindsEye1_finished():
 	current_track = $MindsEye2
 	$MindsEye2.play()
-	print_debug("Song 2")
 
 func _on_MindsEye2_finished():
 	current_track = $MindsEye3
 	$MindsEye3.play()
-	print_debug("Song 3")
 
 func _on_MindsEye3_finished():
 	current_track = $MindsEye1
 	$MindsEye1.play()
-	print_debug("Song 1")

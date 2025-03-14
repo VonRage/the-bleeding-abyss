@@ -12,3 +12,20 @@ motion_mirroring = Vector2( 960, 0 )
 position = Vector2( 0, -272 )
 texture = ExtResource( 1 )
 centered = false
+<<<<<<< Updated upstream
+=======
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.3, 1 )
+
+[node name="SkyThings" parent="ParallaxLayer" instance=ExtResource( 2 )]
+scale = Vector2( 1.5, 1.5 )
+tile_data = PoolIntArray( 65537, 0, 0 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.8, 0.08 )
+motion_mirroring = Vector2( 960, 0 )
+
+[node name="SkyThings" parent="ParallaxLayer2" instance=ExtResource( 2 )]
+tile_data = PoolIntArray( 65537, 2, 0, 65544, 4, 0, 131076, 3, 0, 131084, 1, 0, 196614, 2, 0, 262147, 2, 0, 262153, 1, 0, 327681, 3, 0, 327691, 3, 0, 393222, 1, 0, 393228, 2, 0, 458753, 1, 0, 458756, 4, 0 )
+>>>>>>> Stashed changes
