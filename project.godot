@@ -11,13 +11,10 @@ config_version=4
 [application]
 
 config/name="The Bleeding Abyss"
-<<<<<<< Updated upstream
-run/main_scene="res://levels/Castle.tscn"
-=======
+
 run/main_scene="res://title-screen/Title.tscn"
 boot_splash/image="res://export-assets/AppSplash-Godot.png"
 boot_splash/use_filter=false
->>>>>>> Stashed changes
 
 [display]
 
@@ -115,6 +112,10 @@ ui_reset={
  ]
 }
 
+[logging]
+
+file_logging/enable_file_logging=true
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -125,5 +126,6 @@ quality/driver/fallback_to_gles2=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 vram_compression/import_etc=true
+misc/lossless_compression/force_png=true
 quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

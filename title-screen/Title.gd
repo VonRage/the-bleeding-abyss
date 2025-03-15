@@ -1,6 +1,6 @@
 extends Node2D
 
-var current_saved_level = "Castle"
+var current_saved_level = "Cave1"
 
 onready var current_track = $MindsEye1
 onready var fade_timer = $FadeOutTimer
