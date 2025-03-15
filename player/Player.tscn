@@ -40,30 +40,46 @@ radius = 11.0
 radius = 8.0
 
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( 480, 272 )
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 9 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, 1 )
+current = true
+limit_smoothed = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
 [node name="BodySprite" type="AnimatedSprite" parent="."]
+position = Vector2( -32, -16 )
 frames = SubResource( 1 )
 animation = "idle"
+centered = false
 
 [node name="HeadSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -2, -22 )
+position = Vector2( -12, -15 )
 frames = SubResource( 3 )
+centered = false
+
+[node name="ThrowRotator" type="Node2D" parent="."]
+position = Vector2( -2, -6 )
+
+[node name="Line2D" type="Line2D" parent="ThrowRotator"]
+points = PoolVector2Array( 0, 0, 30, 0 )
+width = 3.0
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
-position = Vector2( -3, 8 )
+position = Vector2( -4, 22 )
 shape = SubResource( 2 )
 
 [node name="CollisionHead" type="CollisionShape2D" parent="."]
-position = Vector2( -2, -22 )
+position = Vector2( -2, -6 )
 shape = SubResource( 4 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2( 0, -100 )
-current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-
 [node name="HUD" parent="." instance=ExtResource( 11 )]
+margin_left = 170.0
+margin_top = 405.0
+margin_right = 170.0
+margin_bottom = 405.0
