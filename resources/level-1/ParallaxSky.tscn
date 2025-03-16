@@ -5,29 +5,26 @@
 
 [node name="ParallaxSky" type="ParallaxBackground"]
 
-[node name="SkyRedBlack" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.1, 0 )
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.9, 0 )
 motion_mirroring = Vector2( 960, 0 )
 
-[node name="Sprite" type="Sprite" parent="SkyRedBlack"]
+[node name="Sprite" type="Sprite" parent="ParallaxLayer"]
 position = Vector2( 0, -272 )
 texture = ExtResource( 1 )
 centered = false
 
-=======
-
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.3, 1 )
-
-[node name="SkyThings" parent="ParallaxLayer" instance=ExtResource( 2 )]
-
-scale = Vector2( 1.5, 1.5 )
-tile_data = PoolIntArray( 65537, 0, 0 )
-
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.8, 0.08 )
-motion_mirroring = Vector2( 960, 0 )
 
 [node name="SkyThings" parent="ParallaxLayer2" instance=ExtResource( 2 )]
-tile_data = PoolIntArray( 65537, 2, 0, 65544, 4, 0, 131076, 3, 0, 131084, 1, 0, 196614, 2, 0, 262147, 2, 0, 262153, 1, 0, 327681, 3, 0, 327691, 3, 0, 393222, 1, 0, 393228, 2, 0, 458753, 1, 0, 458756, 4, 0 )
+scale = Vector2( 1.5, 1.5 )
+cell_size = Vector2( 16, 16 )
+tile_data = PoolIntArray( 131075, -1610612736, 0 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2( 0.8, 1 )
+motion_mirroring = Vector2( 960, 0 )
+
+[node name="SkyThings" parent="ParallaxLayer3" instance=ExtResource( 2 )]
+cell_size = Vector2( 32, 32 )
+tile_data = PoolIntArray( 65556, 3, 0, 131096, -1610612735, 0, 196620, 2, 0, 327689, 4, 0, 458757, 1, 0, 655381, 2, 0, 851971, 3, 0, 851985, 4, 0, 851993, 3, 0 )

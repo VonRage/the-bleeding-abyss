@@ -6,8 +6,14 @@ onready var current_track = $MindsEye1
 onready var fade_timer = $FadeOutTimer
 onready var button_sound = $TitleScreen/Control/StartButton/PressedSound
 
+var shader_static
+
 func load_level(level_name):
 	get_tree().change_scene("res://levels/%s.tscn" % level_name)
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		_on_Button_pressed()
 
 func _on_Button_pressed():
 	button_sound.play()
@@ -18,7 +24,7 @@ func _on_Button_pressed():
 
 func fade_music_out():
 	var tween = create_tween()
-	tween.tween_property(current_track, "volume_db", -80.0, 10)
+	tween.tween_property(current_track, "volume_db", -80.0, 5)
 
 func _on_MindsEye1_finished():
 	current_track = $MindsEye2

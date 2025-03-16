@@ -8,10 +8,25 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://player/Player.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://classes/State.gd"
+} ]
+_global_script_class_icons={
+"Player": "",
+"State": ""
+}
+
 [application]
 
 config/name="The Bleeding Abyss"
-
 run/main_scene="res://title-screen/Title.tscn"
 boot_splash/image="res://export-assets/AppSplash-Godot.png"
 boot_splash/use_filter=false
@@ -119,6 +134,7 @@ file_logging/enable_file_logging=true
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/default_gravity=35
 
 [rendering]
 

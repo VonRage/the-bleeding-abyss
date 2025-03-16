@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resources/level-1/CastleTilemap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/level-1/DarkStoneTileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/level-1/SpikesTileMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/level-1/ParallaxSky.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/level-1/2d_neutral_point_light.webp" type="Texture" id=5]
@@ -14,6 +14,10 @@
 [ext_resource path="res://resources/level-1/TheAspiringOne.gd" type="Script" id=12]
 [ext_resource path="res://resources/level-1/TheAspiringOne.png" type="Texture" id=13]
 [ext_resource path="res://exit-block/ExitBlock.tscn" type="PackedScene" id=14]
+[ext_resource path="res://sfx/lever big 2.wav" type="AudioStream" id=15]
+[ext_resource path="res://sfx/lever big 1.wav" type="AudioStream" id=16]
+[ext_resource path="res://sfx/lever big 3.wav" type="AudioStream" id=17]
+[ext_resource path="res://shaders/fog.tres" type="Material" id=18]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9, 89 )
@@ -51,7 +55,7 @@ position = Vector2( -161, 33 )
 shape = SubResource( 3 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.243137, 0.243137, 0.243137, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 176, -168 )
@@ -66,13 +70,17 @@ tile_data = PoolIntArray( -1638400, 0, 8, -1638399, 0, 2, -1638398, 0, 5, -16383
 [node name="ParallaxSky" parent="." instance=ExtResource( 4 )]
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 208, -128 )
+position = Vector2( 216, -128 )
 texture = ExtResource( 5 )
 color = Color( 0.843137, 0.796078, 0.72549, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D"]
-position = Vector2( -8, 0 )
+position = Vector2( -32, -8 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 1
+playing = true
+centered = false
 
 [node name="Light2D2" type="Light2D" parent="."]
 position = Vector2( 112, 152 )
@@ -80,8 +88,12 @@ texture = ExtResource( 5 )
 color = Color( 0.843137, 0.796078, 0.72549, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D2"]
-position = Vector2( -8, 0 )
+position = Vector2( -16, -8 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 1
+playing = true
+centered = false
 flip_h = true
 
 [node name="Light2D3" type="Light2D" parent="."]
@@ -90,47 +102,52 @@ texture = ExtResource( 5 )
 color = Color( 0.843137, 0.796078, 0.72549, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D3"]
-position = Vector2( -8, 0 )
+position = Vector2( -32, -16 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 1
+playing = true
+centered = false
 
 [node name="Light2D4" type="Light2D" parent="."]
-position = Vector2( 48, 848 )
+position = Vector2( 40, 848 )
 texture = ExtResource( 5 )
 color = Color( 0.843137, 0.796078, 0.72549, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D4"]
 position = Vector2( -8, 0 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 2
+playing = true
+centered = false
 flip_h = true
 
 [node name="Light2D5" type="Light2D" parent="."]
-position = Vector2( 64, 1256 )
+position = Vector2( 56, 1256 )
 texture = ExtResource( 5 )
 color = Color( 1, 0.815686, 0.690196, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D5"]
-position = Vector2( -8, 0 )
+position = Vector2( -8, -8 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 2
+playing = true
+centered = false
 flip_h = true
 
 [node name="Light2D6" type="Light2D" parent="."]
-position = Vector2( 256, 1264 )
+position = Vector2( 264, 1264 )
 texture = ExtResource( 5 )
 color = Color( 1, 0.815686, 0.690196, 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D6"]
-position = Vector2( 8, -8 )
+position = Vector2( -24, -16 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-
-[node name="Light2D7" type="Light2D" parent="."]
-position = Vector2( 520, 792 )
-texture = ExtResource( 5 )
-color = Color( 0.843137, 0.796078, 0.72549, 1 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Light2D7"]
-position = Vector2( -16, -8 )
-frames = SubResource( 1 )
-flip_h = true
+playing = true
+centered = false
 
 [node name="SpotLight2D" type="Light2D" parent="."]
 position = Vector2( 920, 824 )
@@ -144,6 +161,10 @@ script = ExtResource( 11 )
 position = Vector2( -99.5, 328 )
 shape = SubResource( 2 )
 
+[node name="ClickOnSound" type="AudioStreamPlayer2D" parent="SpotLight2D"]
+position = Vector2( -8, 472 )
+stream = ExtResource( 16 )
+
 [node name="SpotLight2D2" type="Light2D" parent="."]
 position = Vector2( 1472, 824 )
 texture = ExtResource( 10 )
@@ -155,6 +176,10 @@ script = ExtResource( 11 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpotLight2D2/Area2D"]
 position = Vector2( -99.5, 328 )
 shape = SubResource( 2 )
+
+[node name="ClickOnSound" type="AudioStreamPlayer2D" parent="SpotLight2D2"]
+position = Vector2( 0, 472 )
+stream = ExtResource( 15 )
 
 [node name="SpotLight2D3" type="Light2D" parent="."]
 position = Vector2( 1976, 824 )
@@ -168,6 +193,10 @@ script = ExtResource( 11 )
 position = Vector2( -99.5, 328 )
 shape = SubResource( 2 )
 
+[node name="ClickOnSound" type="AudioStreamPlayer2D" parent="SpotLight2D3"]
+position = Vector2( 0, 472 )
+stream = ExtResource( 17 )
+
 [node name="SpotLight2D4" type="Light2D" parent="."]
 position = Vector2( 2480, 824 )
 texture = ExtResource( 10 )
@@ -179,6 +208,10 @@ script = ExtResource( 11 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpotLight2D4/Area2D"]
 position = Vector2( -99.5, 328 )
 shape = SubResource( 2 )
+
+[node name="ClickOnSound" type="AudioStreamPlayer2D" parent="SpotLight2D4"]
+position = Vector2( 0, 472 )
+stream = ExtResource( 16 )
 
 [node name="SpotLight2D5" type="Light2D" parent="."]
 position = Vector2( 3000, 824 )
@@ -192,6 +225,10 @@ script = ExtResource( 11 )
 position = Vector2( -99.5, 328 )
 shape = SubResource( 2 )
 
+[node name="ClickOnSound" type="AudioStreamPlayer2D" parent="SpotLight2D5"]
+position = Vector2( 0, 472 )
+stream = ExtResource( 17 )
+
 [node name="ExitBlock" parent="." instance=ExtResource( 14 )]
 position = Vector2( 4040, 1048 )
 scale = Vector2( 0.5, 0.5 )
@@ -202,6 +239,13 @@ texture = ExtResource( 5 )
 texture_scale = 0.5
 color = Color( 0.337255, 0, 0, 1 )
 energy = 1.75
+
+[node name="Fog" type="ColorRect" parent="."]
+material = ExtResource( 18 )
+margin_left = 3.0
+margin_top = 768.0
+margin_right = 4109.0
+margin_bottom = 1337.0
 
 [connection signal="body_entered" from="TheAspiringOne/Area2D" to="TheAspiringOne" method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="SpotLight2D/Area2D" to="SpotLight2D" method="_on_Area2D_body_entered"]
