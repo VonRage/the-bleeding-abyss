@@ -17,11 +17,12 @@ var current_state : State
 # parent object it belongs to and enter the default starting_state.
 func init(parent : Player) -> void:
 	for child in get_children():
-		child.parent = parent
-
+		if child is State:  # Ensures only State nodes are assigned
+			child.parent = parent
+		else:
+			push_warning("Child node '%s' is not a State. Skipping." % child.name)
 	# Initialize to the default state
 	change_state(starting_state)
-	print_debug("init starting state: ", starting_state)
 
 
 # Change to the new state by first calling any exit logic on the current state.
@@ -31,8 +32,6 @@ func change_state(new_state : State) -> void:
 
 	current_state = new_state
 	current_state.enter()
-	print_debug("new state change: ", new_state)
-	print_debug("current state after: ", current_state)
 
 
 # Pass through functions for the Player to call,

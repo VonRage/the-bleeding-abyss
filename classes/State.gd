@@ -5,17 +5,6 @@ extends Node
 export var animation_name : String
 
 
-const ACCELERATION : int = 50
-const MAX_SPEED : int = 300
-const LIMIT_SPEED_Y : int = 1200
-
-
-var velocity : Vector2 
-
-
-# Sets gravity var to Godot's built in var
-# Editable in project settings
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 # Hold a reference to the parent so that it can be controlled by the state
 var parent : Player
 

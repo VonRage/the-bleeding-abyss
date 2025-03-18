@@ -1,9 +1,12 @@
 extends Node2D
 
+signal set_location
 
 const SHADER_OFFSET_X = 480
 const SHADER_OFFSET_Y = 276
 
+var body_standin = load("res://Player/BodyStandin.tscn").instance()
+var head_standin = load("res://Player/HeadStandin.tscn").instance()
 var camera_limits : Dictionary
 
 
@@ -29,4 +32,6 @@ func _process(delta):
 	$CRTShader.rect_position.y = clamp($Player.global_position.x - SHADER_OFFSET_Y, camera_limits["top"], camera_limits["bottom"])
 
 
-
+func _on_Player_create_standin(player_position):
+	add_child(body_standin)
+	emit_signal("set_location", player_position)
