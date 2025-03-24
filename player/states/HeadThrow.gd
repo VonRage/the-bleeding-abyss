@@ -14,9 +14,9 @@ export var throw_strength : float = 1000
 export var throw_height : float = 300
 var direction : int
 
+
 func enter() -> void:
 	.enter()
-	parent.emit_signal("create_standin", parent.player_position)
 	if parent.body_anim.flip_h == true:
 		direction = -1
 	elif parent.body_anim.flip_h == false:
@@ -26,7 +26,7 @@ func enter() -> void:
 	if Input.is_action_just_pressed("ui_throw"):
 		parent.velocity.x = direction * throw_strength
 		parent.velocity.y = -throw_height
-
+	parent.emit_signal("create_standin", parent.global_position)
 
 func process_physics(delta):
 	parent.velocity.y += parent.gravity

@@ -2,8 +2,9 @@ extends State
 
 export (float) var jump_force = 1000
 export (float) var min_jump_height = 200
-export (float) var max_speed = 60
-export (float) var acceleration = 300
+export (float) var max_speed = 300
+export (float) var acceleration = 60
+
 export (NodePath) var head_fall_node
 export (NodePath) var head_roll_node
 export (NodePath) var head_idle_node
@@ -31,7 +32,6 @@ func process_physics(delta: float) -> State:
 #	elif Input.is_action_just_pressed("ui_throw"):
 #		return throw_state
 	
-	print_debug(parent.velocity.y)
 	parent.velocity.x = clamp(parent.velocity.x + (direction * acceleration), -max_speed, max_speed)
 	parent.velocity.x = lerp(parent.velocity.x, 0, 0.01)
 	parent.velocity.y += parent.gravity

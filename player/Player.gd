@@ -2,21 +2,21 @@ class_name Player
 extends KinematicBody2D
 
 
-signal create_standin
-
-
 onready var head_anim = $HeadSprite
 onready var body_anim = $BodySprite
 onready var body_collision = $CollisionBody
 onready var state_machine = $StateMachine
 onready var main_cam = $Camera2D
 
+var create_body_standin = load("res://Player/BodyStandin.tscn").instance()
+var create_head_standin = load("res://Player/HeadStandin.tscn").instance()
+
 
 var velocity : Vector2 = Vector2.ZERO
 # Sets gravity var to Godot's built in var
 # Editable in project settings
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-var player_position : Vector2 = global_position
+var player_position : Vector2
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of

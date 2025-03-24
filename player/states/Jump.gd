@@ -2,8 +2,9 @@ extends State
 
 export (float) var jump_force = 1000
 export (float) var min_jump_height = 200
-export (float) var max_speed = 60
-export (float) var acceleration = 300
+export (float) var max_speed = 300
+export (float) var acceleration = 60
+
 export (NodePath) var fall_node
 export (NodePath) var walk_node
 export (NodePath) var idle_node
@@ -35,11 +36,10 @@ func process_physics(delta: float) -> State:
 	
 	print_debug(parent.velocity.y)
 	parent.velocity.x = clamp(parent.velocity.x + (direction * acceleration), -max_speed, max_speed)
-	parent.velocity.x = lerp(parent.velocity.x, 0, 0.01)
 	parent.velocity.y += parent.gravity
 	parent.velocity = parent.move_and_slide(parent.velocity, Vector2.UP)
 	
-	if parent.velocity.y > 0:
+	if parent.velocity.y > -100:
 		return fall_state
 
 	if parent.is_on_floor():

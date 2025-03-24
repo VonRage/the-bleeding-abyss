@@ -21,7 +21,7 @@
 [ext_resource path="res://player/states/HeadIdle.gd" type="Script" id=19]
 [ext_resource path="res://player/states/HeadRoll.gd" type="Script" id=20]
 [ext_resource path="res://player/states/HeadFall.gd" type="Script" id=21]
-[ext_resource path="res://player/SwapControl.gd" type="Script" id=22]
+[ext_resource path="res://player/states/SwapControl.gd" type="Script" id=22]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -62,7 +62,6 @@ radius = 8.0
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 480, 272 )
-scale = Vector2( 0.9, 0.9 )
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 14 )
@@ -136,13 +135,6 @@ head_idle_node = NodePath("../HeadIdle")
 [node name="SwapControl" type="Node" parent="StateMachine"]
 script = ExtResource( 22 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, 1 )
-current = true
-limit_smoothed = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
-
 [node name="BodySprite" type="AnimatedSprite" parent="."]
 position = Vector2( -32, -16 )
 frames = SubResource( 1 )
@@ -167,3 +159,11 @@ margin_left = 170.0
 margin_top = 405.0
 margin_right = 170.0
 margin_bottom = 405.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, 1 )
+current = true
+limit_smoothed = true
+smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true

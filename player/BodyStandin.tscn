@@ -8,12 +8,17 @@ radius = 9.0
 height = 24.0
 
 [node name="BodyStandin" type="RigidBody2D"]
+position = Vector2( 32, 22 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -32, -16 )
 texture = ExtResource( 1 )
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 28, 38 )
+position = Vector2( -4, 22 )
 shape = SubResource( 1 )
