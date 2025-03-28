@@ -31,7 +31,7 @@ func process_physics(delta: float) -> State:
 	elif Input.is_action_pressed("ui_right"):
 		direction = 1
 		parent.body_anim.flip_h = false
-	elif Input.is_action_just_pressed("ui_throw"):
+	if Input.is_action_just_pressed("ui_throw"):
 		return throw_state
 	
 	print_debug(parent.velocity.y)
