@@ -5,10 +5,10 @@
 [ext_resource path="res://resources/level-1/SpikesTileMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://PrototypeTileMap.tscn" type="PackedScene" id=4]
 [ext_resource path="res://exit-block/ExitBlock.tscn" type="PackedScene" id=5]
-[ext_resource path="res://resources/level-1/ParallaxSky.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/level-1/DarkStoneTileMap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://player/BodyStandin.tscn" type="PackedScene" id=8]
 [ext_resource path="res://shaders/crt_shader.tres" type="Material" id=9]
+[ext_resource path="res://resources/level-1/CaveParallax.tscn" type="PackedScene" id=10]
 
 [node name="Cave1" type="Node2D"]
 script = ExtResource( 1 )
@@ -28,12 +28,12 @@ cell_size = Vector2( 16, 16 )
 show_collision = true
 tile_data = PoolIntArray( 65557, 1610612736, 0, 65570, 1610612736, 0, 65571, 1610612736, 0, 65572, 1610612736, 0, 65573, 1610612736, 0, 65574, 1610612736, 0, 65575, 1610612736, 0, 65576, 1610612736, 0, 65577, 1610612736, 0, 65578, 1610612736, 0, 65579, 1610612736, 0, 65580, 1610612736, 0, 131124, 0, 0, 196617, 1610612736, 0, 196620, 1610612736, 0, 196659, -1073741824, 0, 196661, -1610612736, 0, 262154, 1610612736, 0, 262155, 1610612736, 0, 262196, 1610612736, 0, 983092, 536870912, 0, 1048627, 536870912, 0, 1114121, 0, 0, 1114126, 0, 0, 1114140, 0, 0, 1114141, 0, 0, 1114142, 0, 0, 1114152, 0, 0, 1114153, 0, 0, 1114154, 0, 0, 1114155, 0, 0, 1179685, 536870912, 0, 1179686, 536870912, 0, 1179687, 536870912, 0, 1245194, 0, 0, 1245195, 0, 0, 1245197, 0, 0, 1310732, 0, 0 )
 
+[node name="CaveParallax" parent="." instance=ExtResource( 10 )]
+
 [node name="ExitBlock" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1681, 272 )
 collision_layer = 3
 collision_mask = 2
-
-[node name="ParallaxSky" parent="." instance=ExtResource( 6 )]
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
