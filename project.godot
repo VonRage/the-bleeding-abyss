@@ -37,6 +37,10 @@ run/main_scene="res://title-screen/Title.tscn"
 boot_splash/image="res://export-assets/AppSplash-Godot.png"
 boot_splash/use_filter=false
 
+[autoload]
+
+SceneLoader="*res://SceneLoader.gd"
+
 [display]
 
 window/size/width=960
