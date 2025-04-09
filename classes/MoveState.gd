@@ -29,7 +29,7 @@ func process_input(event : InputEvent) -> State:
 
 
 func process_physics(delta : float) -> State:
-	if !parent.is_on_floor():
+	if !parent.is_on_floor() and parent.velocity.y >= 250:
 		return fall_state
 
 	var direction = get_movement_input()
