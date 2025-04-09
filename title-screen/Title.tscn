@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://title-screen/TitleScreen.png" type="Texture" id=1]
 [ext_resource path="res://title-screen/ButtonTheme.tres" type="Theme" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://music/Mind's Eye Loop1.wav" type="AudioStream" id=5]
 [ext_resource path="res://music/Mind's Eye Loop3.wav" type="AudioStream" id=6]
 [ext_resource path="res://sfx/switch blade 1.wav" type="AudioStream" id=7]
+[ext_resource path="res://shaders/crt_shader.tres" type="Material" id=8]
 
 [node name="Title" type="Node2D"]
 script = ExtResource( 3 )
@@ -59,6 +60,16 @@ scroll_active = false
 [node name="PressedSound" type="AudioStreamPlayer" parent="TitleScreen/Control/StartButton"]
 stream = ExtResource( 7 )
 
+[node name="ColorRect" type="ColorRect" parent="TitleScreen"]
+material = ExtResource( 8 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -480.0
+margin_top = -272.0
+margin_right = -480.0
+margin_bottom = -272.0
+mouse_filter = 2
+
 [node name="MindsEye1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 autoplay = true
@@ -70,7 +81,6 @@ stream = ExtResource( 4 )
 stream = ExtResource( 6 )
 
 [node name="FadeOutTimer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [connection signal="pressed" from="TitleScreen/Control/StartButton" to="." method="_on_Button_pressed"]

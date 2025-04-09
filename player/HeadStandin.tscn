@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://player/sprites/GerardHead.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[node name="HeadStandin" type="RigidBody2D"]
+
+[node name="GerardHead" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 10, 9 )
+shape = SubResource( 1 )

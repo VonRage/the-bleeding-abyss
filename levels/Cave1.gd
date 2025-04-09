@@ -1,28 +1,30 @@
 extends Node2D
 
+
+const SHADER_OFFSET_X = 480
+const SHADER_OFFSET_Y = 276
+
+var camera_limits : Dictionary
+
+
 func _ready():
-	var tilemap = $CastleTileMap
+	var tilemap = $DarkStoneTileMap
 	var map_rect = tilemap.get_used_rect()
 	var cell_size = tilemap.cell_size
-	var global_offset = tilemap.global_position
-	var screen_resolution_multiplier = 2
+	var scale_mult = tilemap.scale
 	
-	# Calculate how level size using tilemap position
-	var camera_limits = {
-		"left": map_rect.position.x * cell_size.x * screen_resolution_multiplier,
-		"right": map_rect.end.x * cell_size.x * screen_resolution_multiplier,
-		"top": map_rect.position.y * cell_size.y * screen_resolution_multiplier,
-		"bottom": map_rect.end.y * cell_size.y * screen_resolution_multiplier
+	# Calculate level size using tilemap position
+	camera_limits = {
+		"left": map_rect.position.x * cell_size.x * scale_mult.x,
+		"right": map_rect.end.x * cell_size.x * scale_mult.x,
+		"top": map_rect.position.y * cell_size.y * scale_mult.y,
+		"bottom": map_rect.end.y * cell_size.y * scale_mult.y
 	}
 	
-	print("camera limits: ", camera_limits)
-	# Pass these limits to the player/camera (e.g., via a signal or direct reference)
+	# Pass these limits to the player/camera
 	$Player.setup_camera_limits(camera_limits)
-	print("cell_size = ", cell_size)
-	print("Tilemap Global Position:", tilemap.global_position)
-	print("Tilemap Used Rect:", tilemap.get_used_rect())
-	print("Tilemap Size (px):", tilemap.get_used_rect().size * tilemap.cell_size)
-
-
-
+	
+func _process(delta):
+	$CRTShader.rect_position.x = clamp($Player.global_position.x - SHADER_OFFSET_X, camera_limits["left"], camera_limits["right"])
+	$CRTShader.rect_position.y = clamp($Player.global_position.x - SHADER_OFFSET_Y, camera_limits["top"], camera_limits["bottom"])
 
