@@ -8,11 +8,12 @@
 [ext_resource path="res://resources/level-1/CaveParallax.tscn" type="PackedScene" id=6]
 
 [node name="PrototypeArea" type="Node2D"]
+position = Vector2( -1064, 48 )
 
 [node name="CaveParallax" parent="." instance=ExtResource( 6 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 10896, 1218 )
+position = Vector2( 5680, 1024 )
 
 [node name="PrototypeLevel1Alt" parent="." instance=ExtResource( 2 )]
 

@@ -90,6 +90,7 @@ throw_node = NodePath("../HeadThrow")
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource( 15 )
 animation_name = "jump"
+jump_force = 0.001
 fall_node = NodePath("../Fall")
 walk_node = NodePath("../Walk")
 idle_node = NodePath("../Idle")
