@@ -39,7 +39,7 @@ boot_splash/use_filter=false
 
 [autoload]
 
-SceneLoader="*res://SceneLoader.gd"
+SceneLoader="*res://singletons/scene_loader.gd"
 
 [display]
 
@@ -52,6 +52,10 @@ window/stretch/aspect="keep"
 
 version_control_autoload_on_startup=true
 version_control_plugin_name="GitAPI"
+
+[global]
+
+etc=false
 
 [gui]
 
@@ -148,6 +152,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0

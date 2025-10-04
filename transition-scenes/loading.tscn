@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.494118, 0.0470588, 0.0470588, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color( 0.619608, 0.627451, 0.192157, 1 )
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id=2]
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color( 0.537255, 0.537255, 0.180392, 0.6 )
+shadow_size = 6
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ProgressBar" type="ProgressBar" parent="ColorRect"]
+anchor_left = 0.116667
+anchor_top = 0.882353
+anchor_right = 0.902083
+anchor_bottom = 0.908088
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = -112.0
+margin_right = 224.0
+margin_bottom = -22.0
+bbcode_enabled = true
+bbcode_text = "[center]“\"Woe to you, teachers of the law and Pharisees, you hypocrites!
+You shut the door of the kingdom of heaven in people’s faces.
+You yourselves do not enter, nor will you let those enter who are trying to.”\"”[/center]
+
+[center]Matthew 23:13 (NIV)[/center]"
+text = "“\"Woe to you, teachers of the law and Pharisees, you hypocrites!
+You shut the door of the kingdom of heaven in people’s faces.
+You yourselves do not enter, nor will you let those enter who are trying to.”\"”
+
+Matthew 23:13 (NIV)"
+fit_content_height = true

@@ -1,18 +1,14 @@
 extends Node2D
 
 
-var current_saved_level = "Cave1"
-
-
 onready var current_track = $MindsEye1
 onready var fade_timer = $FadeOutTimer
 onready var button_sound = $TitleScreen/Control/StartButton/PressedSound
 
 
 func _ready():
-	pass
 	#SceneLoader.load_scene_async("res://transition-scenes/NewGameIntro.tscn")
-
+	pass
 
 func _process(delta):
 	
@@ -53,3 +49,7 @@ func _on_MindsEye3_finished():
 	#Changing music track
 	current_track = $MindsEye1
 	$MindsEye1.play()
+
+
+func _on_FadeOutTimer_timeout():
+	SceneLoader.goto_scene("res://levels/Cave.tscn")

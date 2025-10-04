@@ -60,14 +60,21 @@ scroll_active = false
 [node name="PressedSound" type="AudioStreamPlayer" parent="TitleScreen/Control/StartButton"]
 stream = ExtResource( 7 )
 
-[node name="ColorRect" type="ColorRect" parent="TitleScreen"]
-material = ExtResource( 8 )
+[node name="LoadingBar" type="ProgressBar" parent="TitleScreen/Control"]
+visible = false
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -480.0
-margin_top = -272.0
-margin_right = -480.0
-margin_bottom = -272.0
+margin_top = -22.0
+
+[node name="ColorRect" type="ColorRect" parent="TitleScreen"]
+material = ExtResource( 8 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -544.0
 mouse_filter = 2
 
 [node name="MindsEye1" type="AudioStreamPlayer" parent="."]
@@ -87,3 +94,4 @@ one_shot = true
 [connection signal="finished" from="MindsEye1" to="." method="_on_MindsEye1_finished"]
 [connection signal="finished" from="MindsEye2" to="." method="_on_MindsEye2_finished"]
 [connection signal="finished" from="MindsEye3" to="." method="_on_MindsEye3_finished"]
+[connection signal="timeout" from="FadeOutTimer" to="." method="_on_FadeOutTimer_timeout"]

@@ -8,8 +8,8 @@ onready var body_collision = $CollisionBody
 onready var state_machine = $StateMachine
 onready var main_cam = $Camera2D
 
-var create_body_standin = load("res://Player/BodyStandin.tscn").instance()
-var create_head_standin = load("res://Player/HeadStandin.tscn").instance()
+var create_body_standin = load("res://player/BodyStandin.tscn").instance()
+var create_head_standin = load("res://player/HeadStandin.tscn").instance()
 
 
 var velocity : Vector2 = Vector2.ZERO

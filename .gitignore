@@ -10,6 +10,8 @@ export_presets.cfg
 .mono/
 data_*/
 music/Straight for the Sun.mp3
+
+# Packaged game ignores
 The Bleeding Abyss.exe
 The Bleeding Abyss.pck
 The Bleeding Abyss.vpk
