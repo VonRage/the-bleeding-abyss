@@ -15,18 +15,16 @@ func enter() -> void:
 	.enter()
 	parent.velocity.x = 0
 
-func process_input(event: InputEvent) -> State:
+func process_frame(delta: float) -> State:
 	if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
-#		if Input.is_action_pressed("run"):
-#			return run_state
 		return walk_state
-	elif Input.is_action_just_pressed("ui_jump"):
+	elif Input.is_action_just_pressed("ui_jump") and parent.is_on_floor():
 		return jump_state
 	elif Input.is_action_just_pressed("ui_throw"):
 		return throw_state
 	return null
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	parent.velocity.y += parent.gravity
 	parent.velocity = parent.move_and_slide(parent.velocity, Vector2.UP)
 

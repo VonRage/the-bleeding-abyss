@@ -11,7 +11,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	
+
 	# Checking if "Play" button is pressed
 	if Input.is_action_just_pressed("ui_accept"):
 		_on_Button_pressed()

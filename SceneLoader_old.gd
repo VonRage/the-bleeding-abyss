@@ -11,7 +11,7 @@ func load_scene_async(path: String) -> void:
 	if loading:
 		push_warning("Already loading a scene.")
 		return
-	
+
 	loading = true
 	loading_path = path
 	loader = ResourceLoader.load_interactive(path)
@@ -27,7 +27,7 @@ func load_scene_async(path: String) -> void:
 func _poll_scene_load() -> void:
 	if loader == null:
 		return
-	
+
 	# Poll one step per frame
 	while true:
 		var err = loader.poll()

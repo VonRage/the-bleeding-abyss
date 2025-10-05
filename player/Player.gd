@@ -18,6 +18,7 @@ var velocity : Vector2 = Vector2.ZERO
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_position : Vector2
 
+
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of
 	# the player to the states, that way they can move and
@@ -43,6 +44,7 @@ func _physics_process(delta : float) -> void:
 
 func _process(delta : float) -> void:
 	state_machine.process_frame(delta)
+
 
 func _on_ExitBlock_body_entered(_body):
 	get_tree().change_scene("res://title-screen/Cave3.tscn")

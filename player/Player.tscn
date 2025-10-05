@@ -25,25 +25,25 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "fall",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "walk",
-"speed": 6.0
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": false,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
-"loop": false,
-"name": "fall",
-"speed": 5.0
+"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 6.0
 } ]
 
 [sub_resource type="SpriteFrames" id=3]
@@ -61,7 +61,6 @@ radius = 11.0
 radius = 8.0
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 480, 272 )
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 14 )

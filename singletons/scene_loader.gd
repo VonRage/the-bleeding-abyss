@@ -13,7 +13,7 @@ func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
 	set_process(false)
-	
+
 ## Loads a new scene with an optional loading screen[br]
 ## [br]
 ## Parameters:[br]
@@ -26,7 +26,7 @@ func goto_scene(path, require_button_press = false):  # New parameter
 	if loader == null:
 		show_error()
 		return
-	
+
 	set_process(true)
 	current_scene.queue_free()
 	show_loading_screen()
@@ -71,7 +71,7 @@ func _process(_delta):
 		if err == ERR_FILE_EOF:  # Finished loading
 			var resource = loader.get_resource()
 			loader = null
-			
+
 			if wait_for_input:
 				# Store the scene and show "Press button to continue"
 				loaded_scene = resource
