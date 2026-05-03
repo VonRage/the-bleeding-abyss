@@ -37,7 +37,7 @@ func process_physics(delta: float) -> State:
 
 	return null
 
-func process_frame(delta: float) -> State:
+func process_frame(_delta: float) -> State:
 	if Input.is_action_pressed("ui_left"):
 		direction = -1
 		parent.body_anim.flip_h = true

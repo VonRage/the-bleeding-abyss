@@ -1,0 +1,232 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/sticky_scribe/main_panel.gd" type="Script" id=1]
+[ext_resource path="res://addons/sticky_scribe/issue_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/sticky_scribe/color_button.tscn" type="PackedScene" id=3]
+
+[node name="MainPanel" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+script = ExtResource( 1 )
+ColorButton = ExtResource( 3 )
+IssueItem = ExtResource( 2 )
+_author_edit_path = NodePath("HBoxContainer/AuthorEdit")
+_sort_path = NodePath("HBoxContainer/SortButton")
+_issue_vbox_path = NodePath("ScrollContainer/VBoxContainer")
+_save_timer_path = NodePath("SaveTimer")
+_count_label_path = NodePath("CountLabel")
+_scroll_container_path = NodePath("ScrollContainer")
+_new_button_path = NodePath("HBoxContainer/NewButton")
+_tag_palette_popup_path = NodePath("TagPalettePopup")
+_tag_palette_grid_path = NodePath("TagPalettePopup/TagPaletteGrid")
+_quick_filter_path = NodePath("HBoxContainer/QuickFilter")
+_tag_edit_path = NodePath("HBoxContainer/QuickFilter/TagEdit")
+_priority_filter_path = NodePath("HBoxContainer/QuickFilter/PriorityFilter")
+_priority_edit_path = NodePath("HBoxContainer/QuickFilter/PriorityEdit")
+_search_edit_path = NodePath("HBoxContainer/QuickFilter/SearchEdit")
+_gd_filter_path = NodePath("HBoxContainer/GdFilter")
+_expression_edit_path = NodePath("HBoxContainer/GdFilter/ExpressionEdit")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1600.0
+margin_bottom = 52.0
+
+[node name="SortButton" type="MenuButton" parent="HBoxContainer"]
+margin_right = 120.0
+margin_bottom = 52.0
+focus_mode = 2
+theme_type_variation = "Button"
+text = "Sort By..."
+flat = false
+
+[node name="QuickFilter" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 128.0
+margin_right = 1079.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+
+[node name="TagLabel" type="Label" parent="HBoxContainer/QuickFilter"]
+margin_top = 13.0
+margin_right = 100.0
+margin_bottom = 38.0
+text = "Tag Filter"
+
+[node name="TagEdit" type="LineEdit" parent="HBoxContainer/QuickFilter"]
+margin_left = 108.0
+margin_right = 323.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 215, 0 )
+clear_button_enabled = true
+placeholder_text = "comma-delimited"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="PriorityLabel" type="Label" parent="HBoxContainer/QuickFilter"]
+margin_left = 331.0
+margin_top = 13.0
+margin_right = 411.0
+margin_bottom = 38.0
+text = "Priority"
+
+[node name="PriorityFilter" type="OptionButton" parent="HBoxContainer/QuickFilter"]
+margin_left = 419.0
+margin_right = 518.0
+margin_bottom = 52.0
+text = "Any"
+items = [ "Any", null, false, 0, null, ">=", null, false, 1, null, "<=", null, false, 2, null, "NaN", null, false, 3, null ]
+selected = 0
+
+[node name="PriorityEdit" type="SpinBox" parent="HBoxContainer/QuickFilter"]
+visible = false
+margin_left = 526.0
+margin_right = 722.0
+margin_bottom = 52.0
+min_value = -10.0
+max_value = 10.0
+allow_greater = true
+allow_lesser = true
+
+[node name="SearchLabel" type="Label" parent="HBoxContainer/QuickFilter"]
+margin_left = 526.0
+margin_top = 13.0
+margin_right = 600.0
+margin_bottom = 38.0
+text = "Search"
+
+[node name="SearchEdit" type="LineEdit" parent="HBoxContainer/QuickFilter"]
+margin_left = 608.0
+margin_right = 951.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+clear_button_enabled = true
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="GdFilter" type="HBoxContainer" parent="HBoxContainer"]
+visible = false
+margin_left = 128.0
+margin_right = 1079.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="ExpressionLabel" type="Label" parent="HBoxContainer/GdFilter"]
+margin_top = 11.0
+margin_right = 118.0
+margin_bottom = 36.0
+text = "Expression"
+
+[node name="ExpressionEdit" type="LineEdit" parent="HBoxContainer/GdFilter"]
+margin_left = 126.0
+margin_right = 951.0
+margin_bottom = 48.0
+hint_tooltip = "Uses gd Expression evaluation to show only stickies that satisfy the condition.
+
+inputs:
+priority - the priority of a given sticky
+estimate - the estimate days of a sticky (0 for I don't know, 4096 for forever)
+tags - the Array of tags for a given sticky
+text - the sticky's main text
+timestamp - the unix time the sticky was open (int seconds since epoch)
+author - the author
+
+helper functions:
+any_contains_any(check : Array<string>, test : Array<string>) -> bool - true if any element in check contains any element in test as a substring
+contains_regex(check : String, pattern : String) -> bool - true if an occurrence of the regex pattern is found in check
+any_contains_regex(check : Array<string>, pattern : String) -> bool - true if an occurrence of the regex pattern is found in any element in check"
+size_flags_horizontal = 3
+placeholder_text = "press [enter] to apply filter - errors printed in godot output"
+
+[node name="GdToggleLabel" type="Label" parent="HBoxContainer"]
+margin_left = 1087.0
+margin_top = 13.0
+margin_right = 1181.0
+margin_bottom = 38.0
+text = "GD Filter"
+
+[node name="GdToggleButton" type="CheckBox" parent="HBoxContainer"]
+margin_left = 1189.0
+margin_right = 1237.0
+margin_bottom = 52.0
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_left = 1245.0
+margin_right = 1253.0
+margin_bottom = 52.0
+
+[node name="AuthorLabel" type="Label" parent="HBoxContainer"]
+margin_left = 1261.0
+margin_top = 13.0
+margin_right = 1336.0
+margin_bottom = 38.0
+text = "Author"
+
+[node name="AuthorEdit" type="LineEdit" parent="HBoxContainer"]
+margin_left = 1344.0
+margin_right = 1519.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 175, 0 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="NewButton" type="Button" parent="HBoxContainer"]
+margin_left = 1527.0
+margin_right = 1600.0
+margin_bottom = 52.0
+text = "New"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+margin_top = 60.0
+margin_right = 1600.0
+margin_bottom = 68.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_top = 76.0
+margin_right = 1600.0
+margin_bottom = 867.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1600.0
+margin_bottom = 791.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="IssueItem" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 294.0
+
+[node name="CountLabel" type="Label" parent="."]
+margin_top = 875.0
+margin_right = 1600.0
+margin_bottom = 900.0
+text = "found 1 matching issue(s)"
+align = 1
+
+[node name="SaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TagPalettePopup" type="PopupPanel" parent="."]
+margin_right = 16.0
+margin_bottom = 16.0
+
+[node name="TagPaletteGrid" type="GridContainer" parent="TagPalettePopup"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 8.0
+margin_bottom = 8.0
+columns = 4
+
+[connection signal="text_changed" from="HBoxContainer/QuickFilter/TagEdit" to="." method="_on_tag_text_changed"]
+[connection signal="item_selected" from="HBoxContainer/QuickFilter/PriorityFilter" to="." method="_on_priority_filter_selected"]
+[connection signal="value_changed" from="HBoxContainer/QuickFilter/PriorityEdit" to="." method="_on_priority_filter_value_changed"]
+[connection signal="text_changed" from="HBoxContainer/QuickFilter/SearchEdit" to="." method="_on_search_text_changed"]
+[connection signal="text_changed" from="HBoxContainer/GdFilter/ExpressionEdit" to="." method="_on_expression_text_changed"]
+[connection signal="text_entered" from="HBoxContainer/GdFilter/ExpressionEdit" to="." method="_on_expression_text_entered"]
+[connection signal="toggled" from="HBoxContainer/GdToggleButton" to="." method="_on_gd_toggled"]
+[connection signal="text_changed" from="HBoxContainer/AuthorEdit" to="." method="_on_author_changed"]
+[connection signal="pressed" from="HBoxContainer/NewButton" to="." method="_on_new_pressed"]
+[connection signal="timeout" from="SaveTimer" to="." method="_on_save_timer_timeout"]

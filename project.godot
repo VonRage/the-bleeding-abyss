@@ -55,7 +55,7 @@ version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/sticky_scribe/plugin.cfg" )
 
 [global]
 

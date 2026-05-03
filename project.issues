@@ -1,0 +1,81 @@
+{
+	"version": 1,
+	"meta": {
+		"tag_colors": {
+			"optimization": "9ee09e",
+			"bug": "ff6663",
+			"feature": "9ee09e",
+			"docs": "9ec1cf",
+			"gameplay": "9ee09e",
+			"art": "cc99c9",
+			"level-design": "feb144"
+		}
+	},
+	"issues": {
+		"VonRage": [
+			{
+				"text": "Coyote time doesn't quite feel like it's always working correctly",
+				"tags": [
+					"bug"
+				],
+				"timestamp": 1759705973,
+				"priority": 8,
+				"estimate": 1
+			},
+			{
+				"text": "Input Buffering",
+				"tags": [
+					"feature"
+				],
+				"timestamp": 1759706604,
+				"priority": 5,
+				"estimate": 1
+			},
+			{
+				"text": "Add comments to all the code I was to lazy to comment before",
+				"tags": [
+					"docs"
+				],
+				"timestamp": 1759706751,
+				"priority": -5,
+				"estimate": 1
+			},
+			{
+				"text": "Get head & body stand-ins working (throw head; spawn body; swap back spawns head stand-in)",
+				"tags": [
+					"feature"
+				],
+				"timestamp": 1759707197,
+				"priority": 10,
+				"estimate": 7
+			},
+			{
+				"text": "Enemy setup (logic, animations, AI) with placeholders",
+				"tags": [
+					"feature"
+				],
+				"timestamp": 1759707787,
+				"priority": 7,
+				"estimate": 7
+			},
+			{
+				"text": "Draw enemy art & animations",
+				"tags": [
+					"art"
+				],
+				"timestamp": 1759707968,
+				"priority": 2,
+				"estimate": 1
+			},
+			{
+				"text": "Create new large first level",
+				"tags": [
+					"level-design"
+				],
+				"timestamp": 1759708010,
+				"priority": -3,
+				"estimate": 35
+			}
+		]
+	}
+}

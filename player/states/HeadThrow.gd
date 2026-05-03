@@ -31,7 +31,7 @@ func enter() -> void:
 func process_physics(delta):
 	parent.velocity.y += parent.gravity
 	parent.velocity = parent.move_and_slide(parent.velocity, Vector2.UP)
-	
+
 	if parent.is_on_floor():
 		if Input.is_action_just_pressed("ui_jump"):
 			return head_jump_state
