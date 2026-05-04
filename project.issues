@@ -19,8 +19,7 @@
 					"bug"
 				],
 				"timestamp": 1759705973,
-				"priority": 8,
-				"estimate": 1
+				"priority": 8
 			},
 			{
 				"text": "Input Buffering",
@@ -28,8 +27,7 @@
 					"feature"
 				],
 				"timestamp": 1759706604,
-				"priority": 5,
-				"estimate": 1
+				"priority": 5
 			},
 			{
 				"text": "Add comments to all the code I was to lazy to comment before",
@@ -37,8 +35,7 @@
 					"docs"
 				],
 				"timestamp": 1759706751,
-				"priority": -5,
-				"estimate": 1
+				"priority": -5
 			},
 			{
 				"text": "Get head & body stand-ins working (throw head; spawn body; swap back spawns head stand-in)",
@@ -46,8 +43,7 @@
 					"feature"
 				],
 				"timestamp": 1759707197,
-				"priority": 10,
-				"estimate": 7
+				"priority": 10
 			},
 			{
 				"text": "Enemy setup (logic, animations, AI) with placeholders",
@@ -55,8 +51,7 @@
 					"feature"
 				],
 				"timestamp": 1759707787,
-				"priority": 7,
-				"estimate": 7
+				"priority": 7
 			},
 			{
 				"text": "Draw enemy art & animations",
@@ -64,8 +59,7 @@
 					"art"
 				],
 				"timestamp": 1759707968,
-				"priority": 2,
-				"estimate": 1
+				"priority": 2
 			},
 			{
 				"text": "Create new large first level",
@@ -73,8 +67,15 @@
 					"level-design"
 				],
 				"timestamp": 1759708010,
-				"priority": -3,
-				"estimate": 35
+				"priority": -3
+			},
+			{
+				"text": "When start is pressed on Vita, it takes an unacceptably long time to load the game",
+				"tags": [
+
+				],
+				"timestamp": 1777845039,
+				"priority": -3
 			}
 		]
 	}
