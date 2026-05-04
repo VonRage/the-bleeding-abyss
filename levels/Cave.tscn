@@ -55,3 +55,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -69, 140 )
+gravity = 3200
+speed = 500
+jump_velocity = -800
+terminal_velocity = 1000

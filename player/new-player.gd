@@ -12,11 +12,14 @@ export var speed: int = 300
 export var jump_velocity: int = -400
 export var terminal_velocity: int = 300
 
-const JUMP_BUFFER: int = 6
+const COYOTE_TIME: int = 6
+const INPUT_BUFFER: int = 5
 
-var jump_buffer: float = JUMP_BUFFER
+var coyote_time: float = COYOTE_TIME
+var input_buffer: float = INPUT_BUFFER
+var jump_is_buffered: bool = false
 var direction: int
-var velocity : Vector2 = Vector2.ZERO
+var velocity: Vector2 = Vector2.ZERO
 
 enum State {
 	IDLE,
@@ -35,11 +38,12 @@ enum State {
 	SWAP_CONTROL
 }
 var current_state = State.IDLE
+var previous_state
 
 
 func _physics_process(delta):
 	execute_state(delta)
-	move_and_slide(velocity)
+	move_and_slide(velocity, Vector2.UP)
 
 
 ###################################################
@@ -88,24 +92,24 @@ func run_state(delta) -> void:
 
 	# Change State
 	if not Input.get_axis("ui_left", "ui_right"):
-		jump_buffer = JUMP_BUFFER
+		coyote_time = COYOTE_TIME
 		enter_new_state(State.IDLE)
-	elif Input.is_action_pressed("ui_jump"):
-		jump_buffer = JUMP_BUFFER
+	elif Input.is_action_just_pressed("ui_jump"):
+		coyote_time = COYOTE_TIME
 		enter_new_state(State.JUMP)
 	elif is_on_floor():
 		return
 	# The following happens if player isn't on floor
 	# Jump input buffer (allows for a few frames of grace for jumping when running off a ledge)
-	if jump_buffer > 0:
-		jump_buffer -= 1
-	elif jump_buffer <= 0:
-		jump_buffer = JUMP_BUFFER
+	if coyote_time > 0:
+		coyote_time -= 1
+	elif coyote_time <= 0:
+		coyote_time = COYOTE_TIME
 		enter_new_state(State.FALL)
 
 
 # Allows smoother fall transition
-const JUMP_TO_FALL_THRESHOLD = 100
+const JUMP_TO_FALL_THRESHOLD = 50
 
 func jump_state(delta) -> void:
 	move()
@@ -116,6 +120,8 @@ func jump_state(delta) -> void:
 	if velocity.y > JUMP_TO_FALL_THRESHOLD:
 		enter_new_state(State.FALL)
 
+	# Input buffering for jumping
+	input_buffer_check()
 
 func fall_state(delta) -> void:
 	move()
@@ -127,6 +133,8 @@ func fall_state(delta) -> void:
 			enter_new_state(State.RUN)
 		else:
 			enter_new_state(State.IDLE)
+
+	input_buffer_check()
 
 
 # GLHF with these
@@ -172,21 +180,45 @@ func enter_new_state(new_state) -> void:
 	# Helps prevent actions from performing when not meant to
 	if current_state == new_state:
 		return
-
+	# Keep track of the last state the player was in
+	previous_state = current_state
 	# Change to new state the player will be in
 	current_state = new_state
 
 	# Executed when entering a new state (one-shot)
 	match current_state:
 		State.IDLE:
-			animation_player.play("idle")
+			if jump_is_buffered == true:
+				execute_buffered_input()
+			else:
+				animation_player.play("idle")
 		State.RUN:
-			animation_player.play("run")
+			if jump_is_buffered == true:
+				execute_buffered_input()
+			else:
+				animation_player.play("run")
 		State.JUMP:
 			animation_player.play("jump")
 			velocity.y = jump_velocity
 		State.FALL:
 			animation_player.play("fall")
+
+
+# Can be expanded later with match statement when needed
+func input_buffer_check() -> void:
+	# Input buffering for jump
+	if Input.is_action_just_pressed("ui_jump"):
+		jump_is_buffered = true
+		input_buffer -= 1
+	elif !Input.is_action_pressed("ui_jump") and input_buffer == 0:
+		input_buffer = INPUT_BUFFER
+
+
+# Can also be expanded in future
+func execute_buffered_input() -> void:
+	enter_new_state(State.JUMP)
+	jump_is_buffered = false
+	input_buffer = INPUT_BUFFER
 
 
 ###################################################
