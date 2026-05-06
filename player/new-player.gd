@@ -13,7 +13,7 @@ export var jump_velocity: int = -400
 export var terminal_velocity: int = 300
 
 const COYOTE_TIME: int = 6
-const INPUT_BUFFER: int = 5
+const INPUT_BUFFER: int = 6
 
 var coyote_time: float = COYOTE_TIME
 var input_buffer: float = INPUT_BUFFER
@@ -102,6 +102,7 @@ func run_state(delta) -> void:
 	# The following happens if player isn't on floor
 	# Jump input buffer (allows for a few frames of grace for jumping when running off a ledge)
 	if coyote_time > 0:
+		print("coyote time")
 		coyote_time -= 1
 	elif coyote_time <= 0:
 		coyote_time = COYOTE_TIME
@@ -209,9 +210,11 @@ func input_buffer_check() -> void:
 	# Input buffering for jump
 	if Input.is_action_just_pressed("ui_jump"):
 		jump_is_buffered = true
+	elif not Input.is_action_just_pressed("ui_jump") and jump_is_buffered == true:
 		input_buffer -= 1
-	elif !Input.is_action_pressed("ui_jump") and input_buffer == 0:
-		input_buffer = INPUT_BUFFER
+		if input_buffer <= 0:
+			jump_is_buffered = false
+			input_buffer = INPUT_BUFFER
 
 
 # Can also be expanded in future
